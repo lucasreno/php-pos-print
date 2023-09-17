@@ -124,17 +124,6 @@ $printers = get_printers();
         </section>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <p>
-                <span class="icon is-pulled-right">
-                    <img src="images/icon.png" alt="">
-                </span>
-                &copy; <?= date('Y'); ?> @ tecdiary.com
-            </p>
-        </div>
-    </footer>
-
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript">
         var printers = <?= !empty($printers) ? json_encode($printers) : '{}'; ?>;
