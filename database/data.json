@@ -5,7 +5,7 @@
       "title": "Bematech MP-100S TH",
       "type": "windows",
       "profile": "default",
-      "char_per_line": "80",
+      "char_per_line": "42",
       "path": "smb://DESKTOP-R5OBDSM/MP-100S",
       "ip_address": "",
       "port": ""
