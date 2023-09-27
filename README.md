@@ -5,9 +5,13 @@
 ### Instalação
 
 Para clonar e executar este repositório, você precisará:
-[git](https://git-scm.com),
-[php](http://php.net/) &
-[composer](https://getcomposer.org/).
+[git](https://git-scm.com)
+[php](http://php.net/)
+[composer](https://getcomposer.org/)
+
+Habilitar extensões PHP:
+
+Abrir o arquivo `php.ini` e remover o `;` da linha `extension=gd2`
 
 Comandos para instalar:
 
