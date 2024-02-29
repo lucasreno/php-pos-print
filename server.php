@@ -5,13 +5,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Tec\Ppp\Escpos;
 
 try {
-    $ip = getenv('WS_IP') ?: '127.0.0.1';
-    $port = getenv('WS_PORT') ?: '6441';
-
-    echo '> Starting server on ', $ip, ':', $port, "\n";
+    echo '> Starting server ', "\n";
 
     $websocket = new Hoa\Websocket\Server(
-        new Hoa\Socket\Server("ws://{$ip}:{$port}")
+        new Hoa\Socket\Server("ws://localhost:6441")
     );
 
     $websocket->on('open', function (Hoa\Event\Bucket $bucket) {

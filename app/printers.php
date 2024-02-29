@@ -130,12 +130,6 @@ $printers = get_printers();
             </div>
         </section>
     </div>
-    <span style="display: none" id="ws_id">
-        <?= getenv('WS_IP') ?: '127.0.0.1'; ?>
-    </span>
-    <span style="display: none" id="ws_port">
-        <?= getenv('WS_PORT') ?: '6441'; ?>
-    </span>
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript">
         var printers = <?= !empty($printers) ? json_encode($printers) : '{}'; ?>;

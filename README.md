@@ -34,13 +34,6 @@ Na próxima vez, você pode simplesmente executar `php server.php` na linha de c
 
 O servidor rodará na porta 6441 ( ws://localhost:6441 ) e ficará escutando por novos trabalhos de impressão.
 
-Para configurar o endereço que o servidor irá escutar, você pode editar as variáveis de ambiente:
-    - WS_IP
-    - WS_PORT
-
-Pode ser necessário reiniciar o computador para que as variáveis de ambiente sejam atualizadas.
-Também é preciso liberar o firewall para a porta escolhida.
-
 ---
 
 ### Impressora locais

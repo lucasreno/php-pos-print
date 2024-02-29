@@ -1,8 +1,6 @@
 var socket = null;
 try {
-  var ip = document.getElementById("ws_id").textContent.replace(/\s/g, "");
-  var port = document.getElementById("ws_port").textContent.replace(/\s/g, "");
-  socket = new WebSocket("ws://" + ip + ":" + port);
+  socket = new WebSocket("ws://localhost:6441");
   socket.onopen = function () {
     var curr = document.getElementsByClassName("status");
     for (var i = 0; i < curr.length; i++) {
