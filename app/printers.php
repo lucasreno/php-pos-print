@@ -6,7 +6,9 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
 $error = $message = '';
 include 'helpers.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["printer_id"])) { $error .= '<p><strong>Printer</strong> is not selected</p>'; }
+    if (empty($_POST["printer_id"])) {
+        $error .= '<p><strong>Printer</strong> is not selected</p>';
+    }
     if (empty($error) && del_printer($_POST["printer_id"])) {
         $message = 'Printer successfully deleted';
     } else {
@@ -14,18 +16,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 $printers = get_printers();
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="images/icon.png"/>
+    <link rel="shortcut icon" href="images/icon.png" />
 
     <title>PHP POS Print Server</title>
     <link rel="stylesheet" href="css/bulma.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="wrapper">
         <section class="hero is-info">
@@ -39,9 +44,9 @@ $printers = get_printers();
                         </div>
                         <div class="nav-right">
                             <?php if (file_exists('./logs.php')) { ?>
-                            <a href="logs.php" class="nav-item">
-                                Logs
-                            </a>
+                                <a href="logs.php" class="nav-item">
+                                    Logs
+                                </a>
                             <?php } ?>
                             <a href="printers.php" class="nav-item is-active">
                                 Printers
@@ -62,7 +67,9 @@ $printers = get_printers();
                         A php application for printing POS receipts.
                     </h2>
                     <a href="#" class="button is-large status" onclick="return checkStatus()">Checking...</a>
-                    <div id="message" style="display:none;"><div id="notification" class="notification"></div></div>
+                    <div id="message" style="display:none;">
+                        <div id="notification" class="notification"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -77,12 +84,12 @@ $printers = get_printers();
             <div class="container">
                 <?php
                 if ($message) {
-                    echo '<div class="notification is-success">'.$message.'</div>';
+                    echo '<div class="notification is-success">' . $message . '</div>';
                 }
                 ?>
                 <?php
                 if ($error) {
-                    echo '<div class="notification is-danger">'.$error.'</div>';
+                    echo '<div class="notification is-danger">' . $error . '</div>';
                 }
                 ?>
                 <p class="subtitle">Please review the printer or try test printing.</p>
@@ -102,15 +109,15 @@ $printers = get_printers();
                     <tbody>
                         <?php
                         if (!empty($printers)) {
-                            foreach($printers as $printer) {
+                            foreach ($printers as $printer) {
                                 echo '<tr>';
-                                echo '<td>'.$printer->title.'</td>';
-                                echo '<td>'.$printer->type.'</td>';
-                                echo '<td>'.$printer->profile.'</td>';
-                                echo '<td>'.$printer->path.'</td>';
-                                echo '<td>'.$printer->ip_address.'</td>';
-                                echo '<td>'.$printer->port.'</td>';
-                                echo '<td class="has-text-centered"><span class="icon"><a href="#" class="test-print" data-printer-id="'.$printer->id.'"><img src="images/print.png" aslt="print"></a></span> <span class="icon"><form action="printers.php" method="post" accept-charset="utf-8"><input type="hidden" name="printer_id" value="'.$printer->id.'"><input type="image" src="images/trash.png" alt="del" style="height:24px;" /></form></span></td>';
+                                echo '<td>' . $printer->title . '</td>';
+                                echo '<td>' . $printer->type . '</td>';
+                                echo '<td>' . $printer->profile . '</td>';
+                                echo '<td>' . $printer->path . '</td>';
+                                echo '<td>' . $printer->ip_address . '</td>';
+                                echo '<td>' . $printer->port . '</td>';
+                                echo '<td class="has-text-centered"><span class="icon"><a href="#" class="test-print" data-printer-id="' . $printer->id . '"><img src="images/print.png" aslt="print"></a></span> <span class="icon"><form action="printers.php" method="post" accept-charset="utf-8"><input type="hidden" name="printer_id" value="' . $printer->id . '"><input type="image" src="images/trash.png" alt="del" style="height:24px;" /></form></span></td>';
                                 echo '</tr>';
                             }
                         } else {
@@ -123,10 +130,16 @@ $printers = get_printers();
             </div>
         </section>
     </div>
-
+    <span style="display: none" id="ws_id">
+        <?= getenv('WS_IP') ?: '127.0.0.1'; ?>
+    </span>
+    <span style="display: none" id="ws_port">
+        <?= getenv('WS_PORT') ?: '6441'; ?>
+    </span>
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript">
         var printers = <?= !empty($printers) ? json_encode($printers) : '{}'; ?>;
     </script>
 </body>
+
 </html>

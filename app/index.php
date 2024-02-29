@@ -6,8 +6,12 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE &
 $error = $message = '';
 include 'helpers.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["receipt_printer"])) { $error .= '<p><strong>Receipt printer</strong> is required</p>'; }
-    if (empty($_POST["order_printers"])) { $error .= '<p><strong>Order printer(s)</strong> are required</p>'; }
+    if (empty($_POST["receipt_printer"])) {
+        $error .= '<p><strong>Receipt printer</strong> is required</p>';
+    }
+    if (empty($_POST["order_printers"])) {
+        $error .= '<p><strong>Order printer(s)</strong> are required</p>';
+    }
 
     if (empty($error)) {
         if (update_printers($_POST["receipt_printer"], $_POST["order_printers"])) {
@@ -20,18 +24,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $printers = get_printers();
 $order_printers = get_order_printers();
 $receipt_printer = get_receipt_printer();
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="images/icon.png"/>
+    <link rel="shortcut icon" href="images/icon.png" />
 
     <title>PHP POS Print Server</title>
     <link rel="stylesheet" href="css/bulma.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="wrapper">
         <section class="hero is-info">
@@ -45,9 +52,9 @@ $receipt_printer = get_receipt_printer();
                         </div>
                         <div class="nav-right">
                             <?php if (file_exists('./logs.php')) { ?>
-                            <a href="logs.php" class="nav-item">
-                                Logs
-                            </a>
+                                <a href="logs.php" class="nav-item">
+                                    Logs
+                                </a>
                             <?php } ?>
                             <a href="printers.php" class="nav-item">
                                 Printers
@@ -68,7 +75,9 @@ $receipt_printer = get_receipt_printer();
                         A php application for printing POS receipts.
                     </h2>
                     <a href="#" class="button is-large status" onclick="return checkStatus()">Checking...</a>
-                    <div id="message" style="display:none;"><div id="notification" class="notification"></div></div>
+                    <div id="message" style="display:none;">
+                        <div id="notification" class="notification"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -84,12 +93,12 @@ $receipt_printer = get_receipt_printer();
 
                 <?php
                 if ($message) {
-                    echo '<div class="notification is-success">'.$message.'</div>';
+                    echo '<div class="notification is-success">' . $message . '</div>';
                 }
                 ?>
                 <?php
                 if ($error) {
-                    echo '<div class="notification is-danger">'.$error.'</div>';
+                    echo '<div class="notification is-danger">' . $error . '</div>';
                 }
                 ?>
                 <p class="subtitle">Please select receipt and order printers to update defaults.</p>
@@ -107,8 +116,8 @@ $receipt_printer = get_receipt_printer();
                                         <select name="receipt_printer" id="receipt_printer">
                                             <?php
                                             if (!empty($printers)) {
-                                                foreach($printers as $printer) {
-                                                    echo '<option value="'.$printer->id.'"'.(($printer->id == $receipt_printer) ? ' selected="selected"' : '').'>'.$printer->title.'</option>';
+                                                foreach ($printers as $printer) {
+                                                    echo '<option value="' . $printer->id . '"' . (($printer->id == $receipt_printer) ? ' selected="selected"' : '') . '>' . $printer->title . '</option>';
                                                 }
                                             } else {
                                                 echo '<option>Please add printer first</option>';
@@ -131,8 +140,8 @@ $receipt_printer = get_receipt_printer();
                                         <select name="order_printers[]" id="order_printers" multiple>
                                             <?php
                                             if (!empty($printers)) {
-                                                foreach($printers as $printer) {
-                                                    echo '<option value="'.$printer->id.'"'.(in_array($printer->id, $order_printers) ? ' selected="selected"' : '').'>'.$printer->title.'</option>';
+                                                foreach ($printers as $printer) {
+                                                    echo '<option value="' . $printer->id . '"' . (in_array($printer->id, $order_printers) ? ' selected="selected"' : '') . '>' . $printer->title . '</option>';
                                                 }
                                             } else {
                                                 echo '<option>Please add printer first</option>';
@@ -160,8 +169,13 @@ $receipt_printer = get_receipt_printer();
             </div>
         </section>
     </div>
-
-
+    <span style="display: none" id="ws_id">
+        <?= getenv('WS_IP') ?: '127.0.0.1'; ?>
+    </span>
+    <span style="display: none" id="ws_port">
+        <?= getenv('WS_PORT') ?: '6441'; ?>
+    </span>
     <script type="text/javascript" src="js/script.js"></script>
 </body>
+
 </html>

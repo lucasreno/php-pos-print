@@ -1,6 +1,8 @@
 var socket = null;
 try {
-  socket = new WebSocket("ws://127.0.0.1:6441");
+  var ip = document.getElementById("ws_id").textContent.replace(/\s/g, "");
+  var port = document.getElementById("ws_port").textContent.replace(/\s/g, "");
+  socket = new WebSocket("ws://" + ip + ":" + port);
   socket.onopen = function () {
     var curr = document.getElementsByClassName("status");
     for (var i = 0; i < curr.length; i++) {
@@ -90,43 +92,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function testData() {
   receipt = {};
-  receipt.store_name = "Test Biller\n";
+  receipt.store_name = "IMPRESSORA TESTES\n";
 
   receipt.header = "";
-  receipt.header += "Test Biller\n";
-  receipt.header += "Biller adddress\n";
-  receipt.header += "City Country\n";
-  receipt.header += "Tel: 012345678";
+  receipt.header += "Teste de impressao\n";
+  receipt.header += "Rua do Teste, 123\n";
+  receipt.header += "Cidade do Teste\n";
+  receipt.header += "Tel: 123456789\n";
   receipt.header += "\n\n";
-  receipt.header += "GST Reg: 123456789\n";
-  receipt.header += "VAT Reg: 987654321\n";
-  receipt.header += "\n";
-
+  
   receipt.info = "";
-  receipt.info += "Date: 08/05/2017 10:38" + "\n";
-  receipt.info += "Sale No/Ref: 15" + "\n";
-  receipt.info += "Sales Associate: Owner Owner" + "\n\n";
-  receipt.info += "Customer: Walk-in Customer" + "\n";
+  receipt.info += "Data: " + new Date().toLocaleString() + "\n";
+  receipt.info += "Cupom Fiscal: 000000\n";
+  receipt.info += "Operador: Teste\n";
+  receipt.info += "--------------------------------\n";
 
   receipt.items = "";
-  receipt.items += "#1 FFR07 - Yellow Watermelon           *Z" + "\n";
-  receipt.items += "   2.500 kg x 2.50                   6.25" + "\n";
-  receipt.items += "#2 FFR06 - Watermelon                  *Z" + "\n";
-  receipt.items += "   2.500 kg x 2.50                   6.25" + "\n";
-
-  receipt.totals = "";
-  receipt.totals += "Total:                              12.50" + "\n";
-  receipt.totals += "Grand Total:                        12.50" + "\n";
-  receipt.totals += "Paid Amount:                        12.50" + "\n";
-  receipt.totals += "Due Amount:                          0.00" + "\n";
-
-  receipt.payments = "";
-  receipt.payments += "Paid by:                             Cash" + "\n";
-  receipt.payments += "Amount:                             12.50" + "\n";
-  receipt.payments += "Change:                              0.00" + "\n";
-
-  receipt.footer = "";
-  receipt.footer += " Thank you for shopping with us. \nPlease come again\n\n";
+  receipt.items += "#1 FFR06 - Melancia                    *Z" + "\n";
+  receipt.items += "   2,500 kg x R$ 2,50             R$ 6,25" + "\n";
+  receipt.items += "#2 FFR06 - Melão                       *Z" + "\n";
+  receipt.items += "   2,000 kg x R$ 2,00             R$ 4,00" + "\n";
 
   return receipt;
 }
@@ -141,7 +126,6 @@ function printTest(printer_id) {
     var receipt_data = testData();
     var socket_data = {
       printer: printer,
-      logo: "logo2.png",
       text: receipt_data,
     };
     socket.send(
