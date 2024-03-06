@@ -1,7 +1,17 @@
 {
   "printers": [
     {
-      "id": "2361dd8bea72d98c58eb090fb9f54a6c",
+      "id": "principal",
+      "title": "Bematech MP-100S TH",
+      "type": "windows",
+      "profile": "default",
+      "char_per_line": "42",
+      "path": "smb://DESKTOP-R5OBDSM/MP-100S",
+      "ip_address": "",
+      "port": ""
+    },
+    {
+      "id": "secundaria",
       "title": "Bematech MP-100S TH",
       "type": "windows",
       "profile": "default",
@@ -11,6 +21,6 @@
       "port": ""
     }
   ],
-  "receipt_printer": "2361dd8bea72d98c58eb090fb9f54a6c",
-  "order_printers": ["2361dd8bea72d98c58eb090fb9f54a6c"]
+  "receipt_printer": "principal",
+  "order_printers": ["secundaria"]
 }
