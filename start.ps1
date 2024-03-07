@@ -1,0 +1,2 @@
+#PowerShell.exe -ExecutionPolicy Bypass -File "c:\php-pos-print\start.ps1"
+Start-Process -FilePath "cmd" -ArgumentList "/c php c:\php-pos-print\server.php" -WindowStyle Hidden -RedirectStandardOutput "c:\php-pos-print\server.log" -RedirectStandardError "c:\php-pos-print\error.log"

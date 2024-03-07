@@ -96,3 +96,7 @@ crashlytics-build.properties
 # Visual Studio Code
 # =========================
 .vscode
+
+# Logs
+# =========================
+*.log
